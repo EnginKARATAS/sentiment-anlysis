@@ -3,8 +3,8 @@ from elasticsearch import Elasticsearch
 es = Elasticsearch()
 
 doc = {
-    'author': 'kimchy',
-    'text': 'Elasticsearch: cool. bonsai cool.',
+    'author': 'sonaovski',
+    'text': 'Elasticsearch: cool.',
     'timestamp': datetime.now(),
 }
 res = es.index(index="test-index", id=1, document=doc)
