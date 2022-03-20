@@ -6,8 +6,7 @@ auth.set_access_token(access_token, access_token_secret)
 
 api = tweepy.API(auth)
 
- 
-# print(api.mentions_timeline())
-# api.update_status("This Tweet was Tweeted using Tweepy!")
+print(api.mentions_timeline())
+api.update_status("This Tweet was Tweeted using Tweepy!")
 
 
