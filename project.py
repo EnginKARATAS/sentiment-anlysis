@@ -1,14 +1,24 @@
 import json
-from tweepy.streaming import StreamListener
-from tweepy import OAuthHandler
-from tweepy import Stream
+import tweepy
 from textblob import TextBlob
 from elasticsearch import Elasticsearch
 from config import *
 
-es = Elasticsearch()
+#elkenterprise
+from elasticsearch import Elasticsearch, helpers
+import configparser
 
-class TweetStreamListener(StreamListener):
+config = configparser.ConfigParser()
+config.read('example.ini')
+
+es = Elasticsearch(
+    cloud_id=config['ELASTIC']['cloud_id'],
+    http_auth=(config['ELASTIC']['user'], config['ELASTIC']['password'])
+)
+
+
+
+class TweetStreamListener(tweepy.StreamListener):
 
     def on_data(self, data):
 
@@ -27,8 +37,8 @@ class TweetStreamListener(StreamListener):
 
         print (sentiment)
 
-        es.index(index="twitter2",
-                 doc_type="test-type",
+        es.index(index="twitter4",
+                 doc_type="_doc",
                  body={"author": dict_data["user"]["screen_name"],
                        "date": dict_data["created_at"],
 		       "location": dict_data["user"]["location"],
@@ -49,9 +59,9 @@ if __name__ == '__main__':
 
     listener = TweetStreamListener()
 
-    auth = OAuthHandler(consumer_key, consumer_secret)
+    auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
     auth.set_access_token(access_token, access_token_secret)
 
-    stream = Stream(auth, listener)
+    stream = tweepy.Stream(auth, listener)
 
-    stream.filter(track=['beatles']) 
+    stream.filter(track=['ukraine']) 
