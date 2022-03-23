@@ -1,3 +1,10 @@
+#secret key protection for git commit
+import os #package that allows to access env. variables
+from dotenv import load_dotenv, find_dotenv
+load_dotenv(find_dotenv())
+
+print(os.getenv("API_KEY"))
+
 import json
 import tweepy
 from textblob import TextBlob
@@ -11,9 +18,18 @@ import configparser
 config = configparser.ConfigParser()
 config.read('example.ini')
 
+api_key = os.getenv("api_key")
+api_key_secret = os.getenv("api_key_secret")
+access_token = os.getenv("access_token") 
+access_token_secret = os.getenv("access_token_secret")
+
+cloud_id=os.getenv("cloud_id")
+user=os.getenv("user")
+password=os.getenv("password")
+
 es = Elasticsearch(
-    cloud_id=config['ELASTIC']['cloud_id'],
-    http_auth=(config['ELASTIC']['user'], config['ELASTIC']['password'])
+    cloud_id=cloud_id,
+    http_auth=(user,password)
 )
 
 
@@ -29,11 +45,11 @@ class TweetStreamListener(tweepy.StreamListener):
         print (tweet.sentiment.polarity)
 
         if tweet.sentiment.polarity < 0:
-            sentiment = "olumsuz"
+            sentiment = "negative"
         elif tweet.sentiment.polarity == 0:
             sentiment = "normal"
         else:
-            sentiment = "olumlu"
+            sentiment = "positive"
 
         print (sentiment)
 
