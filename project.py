@@ -3,8 +3,6 @@ import os #package that allows to access env. variables
 from dotenv import load_dotenv, find_dotenv
 load_dotenv(find_dotenv())
 
-print(os.getenv("API_KEY"))
-
 import json
 import tweepy
 from textblob import TextBlob
@@ -31,8 +29,6 @@ es = Elasticsearch(
     cloud_id=cloud_id,
     http_auth=(user,password)
 )
-
-
 
 class TweetStreamListener(tweepy.StreamListener):
 
