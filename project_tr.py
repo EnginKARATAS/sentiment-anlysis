@@ -12,6 +12,7 @@ import tweepy
 from textblob import TextBlob
 #elk enterprise connection. import elsaticsearch library for python to coonect elasic cloud instance
 from elasticsearch import Elasticsearch
+
 #----
 
 sys.path.append('./environment')
@@ -39,10 +40,14 @@ class TweetStreamListener(tweepy.StreamListener):
 
     def on_data(self, data):
 
+
         dict_data = json.loads(data)
 
-        tweet = TextBlob(dict_data["text"])
 
+        blob1 = TextBlob(dict_data["text"])
+        blob_eng = blob1.translate(to="en")
+        print(blob_eng.sentiment)
+        tweet = TextBlob(dict_data["text"])
         print (tweet.sentiment.polarity)
 
         if tweet.sentiment.polarity < 0:
@@ -81,4 +86,4 @@ if __name__ == '__main__':
 
     stream = tweepy.Stream(auth, listener)
 
-    stream.filter(track=['ukraine']) 
+    stream.filter(track=['suriyeli']) 
