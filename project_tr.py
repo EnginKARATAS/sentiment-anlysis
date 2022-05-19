@@ -59,7 +59,7 @@ class TweetStreamListener(tweepy.StreamListener):
 
         print (sentiment)
 
-        es.index(index="twitter4",
+        es.index(index="suriyeli_kelimesiyle_ilgili_topic_analizi",
                  doc_type="_doc",
                  body={"author": dict_data["user"]["screen_name"],
                        "date": dict_data["created_at"],
