@@ -17,17 +17,11 @@ from textblob import TextBlob
 # elk enterprise connection. import elsaticsearch library for python to coonect elasic cloud instance
 from elasticsearch import Elasticsearch
 
-# ----
-
 import pandas as pd
 import re as re
 
 sys.path.append("./environment")
 from config import *
-
-# currentdir = os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe())))
-# sys.path.insert(0, parentdir)
-# print(currentdir)
 
 api_key = os.getenv("api_key")
 api_key_secret = os.getenv("api_key_secret")
@@ -39,7 +33,6 @@ user = os.getenv("user")
 password = os.getenv("password")
 
 es = Elasticsearch(cloud_id=cloud_id, http_auth=(user, password))
-
 
 class TweetStreamListener(tweepy.StreamListener):
     def on_data(self, data):
@@ -91,7 +84,6 @@ class TweetStreamListener(tweepy.StreamListener):
 
     def on_error(self, status):
         print(status)
-
 
 if __name__ == "__main__":
 
