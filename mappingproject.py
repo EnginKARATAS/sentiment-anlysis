@@ -64,7 +64,7 @@ class TweetStreamListener(tweepy.StreamListener):
         print(sentiment)
 
         es.index(
-            index="ukraine_crisis_topic",
+            index="mappingtestt",
             doc_type="_doc",
             body={
                 "author": dict_data["user"]["screen_name"],
@@ -78,6 +78,12 @@ class TweetStreamListener(tweepy.StreamListener):
                 "polarity": tweet.sentiment.polarity,
                 "subjectivity": tweet.sentiment.subjectivity,
                 "sentiment": sentiment,
+                "location2": dict_data["user"]["location"],
+                "location":{
+                    "lat":41.12,
+                    "lon":-71.34
+                }
+
             },
         )
         return True
@@ -85,7 +91,7 @@ class TweetStreamListener(tweepy.StreamListener):
     def on_error(self, status):
         print(status)
 
-if __name__ == "__main__": #is used to execute some code only if the file was run directly, and not imported.ww
+if __name__ == "__main__": #is used to execute some code only if the file was run directly, and not imported
 
     listener = TweetStreamListener()
 
