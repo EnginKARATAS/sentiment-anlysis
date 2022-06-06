@@ -1,7 +1,5 @@
 import sys
 
-
-
 # secret key protection for git commit
 import os  # package that allows to access env. variables
 from dotenv import load_dotenv, find_dotenv
@@ -21,6 +19,9 @@ from elasticsearch import Elasticsearch
 
 import pandas as pd
 import re as re
+
+# importing geopy library
+from geopy.geocoders import Nominatim
 
 sys.path.append("./environment")
 from config import *
