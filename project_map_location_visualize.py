@@ -37,6 +37,9 @@ password = os.getenv("password")
 
 es = Elasticsearch(cloud_id=cloud_id, http_auth=(user, password))
 
+# calling the nominatim tool
+loc = Nominatim(user_agent="GetLoc")
+
 class TweetStreamListener(tweepy.StreamListener):
     def on_data(self, data):
 
@@ -65,31 +68,41 @@ class TweetStreamListener(tweepy.StreamListener):
             sentiment = "positive"
 
         print(sentiment)
+        lat=0;
+        lon=0;
+        try:
+            getLoc = loc.geocode(dict_data["user"]["location"])
+            lat = getLoc.latitude
+            lon = getLoc.longitude
+        except:
+            print("Location Found Error")
+        if(lat!=0 and lon!=0):
+            es.index(
+                index="mappingtestt",
+                doc_type="_doc",
+                body={
+                    "author": dict_data["user"]["screen_name"],
+                    "date": dict_data["created_at"],
+                    "location": dict_data["user"]["location"],
+                    "followers": dict_data["user"]["followers_count"],
+                    "friends": dict_data["user"]["friends_count"],
+                    "time_zone": dict_data["user"]["time_zone"],
+                    "lang": dict_data["user"]["lang"],
+                    "message": dict_data["text"],
+                    "polarity": tweet.sentiment.polarity,
+                    "subjectivity": tweet.sentiment.subjectivity,
+                    "sentiment": sentiment,
+                    "location":{
+                        "lat":lat,
+                        "lon":lon
+                    }
 
-        es.index(
-            index="mappingtestt",
-            doc_type="_doc",
-            body={
-                "author": dict_data["user"]["screen_name"],
-                "date": dict_data["created_at"],
-                "location": dict_data["user"]["location"],
-                "followers": dict_data["user"]["followers_count"],
-                "friends": dict_data["user"]["friends_count"],
-                "time_zone": dict_data["user"]["time_zone"],
-                "lang": dict_data["user"]["lang"],
-                "message": dict_data["text"],
-                "polarity": tweet.sentiment.polarity,
-                "subjectivity": tweet.sentiment.subjectivity,
-                "sentiment": sentiment,
-                "location2": dict_data["user"]["location"],
-                "location":{
-                    "lat":41.12,
-                    "lon":-71.34
-                }
-
-            },
-        )
-        return True
+                },
+            )
+        else:
+            print("Insert failed to Elastic Search Cloud. Reason: No location found")
+            print("Location: " + dict_data["user"]["location"])
+        return True # continue evry record instance of the tweepy tweet stream listener
 
     def on_error(self, status):
         print(status)
