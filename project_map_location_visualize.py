@@ -1,5 +1,7 @@
 import sys
 
+
+
 # secret key protection for git commit
 import os  # package that allows to access env. variables
 from dotenv import load_dotenv, find_dotenv
