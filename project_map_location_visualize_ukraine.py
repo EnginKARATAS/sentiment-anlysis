@@ -58,8 +58,7 @@ class TweetStreamListener(tweepy.StreamListener):
         #sentiment analysis
         tweet = TextBlob(tweettext)
 
-        print(tweet.sentiment.polarity)
-
+        print(tweettext)
         if tweet.sentiment.polarity < 0:
             sentiment = "negative"
         elif tweet.sentiment.polarity == 0:
@@ -67,16 +66,22 @@ class TweetStreamListener(tweepy.StreamListener):
         else:
             sentiment = "positive"
 
-        print(sentiment)
         lat=0;
         lon=0;
         try:
             getLoc = loc.geocode(dict_data["user"]["location"])
             lat = getLoc.latitude
             lon = getLoc.longitude
+            print(dict_data["user"]["location"])
+            print(tweet.sentiment.polarity)
         except:
             print("Location Found Error")
-        if(lat!=0 and lon!=0):
+        if(lat!=0 and lon!=0 and tweet.sentiment.polarity != 0.0):
+            print("sentiment")
+            print(sentiment)
+            print("polarity")
+            print(tweet.sentiment.polarity)
+
             es.index(
                 index="mappingtestt",
                 doc_type="_doc",
@@ -99,9 +104,10 @@ class TweetStreamListener(tweepy.StreamListener):
 
                 },
             )
+            print("Inserted: " + str(dict_data["user"]["location"]))
+
         else:
             print("Insert failed to Elastic Search Cloud. Reason: No location found")
-            print("Location: " + dict_data["user"]["location"])
         return True # continue evry record instance of the tweepy tweet stream listener
 
     def on_error(self, status):
