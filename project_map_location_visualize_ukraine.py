@@ -2,9 +2,6 @@ import sys
 
 # secret key protection for git commit
 import os  # package that allows to access env. variables
-from dotenv import load_dotenv, find_dotenv
-
-load_dotenv(find_dotenv())
 
 import json
 
@@ -45,7 +42,7 @@ class TweetStreamListener(tweepy.StreamListener):
 
         dict_data = json.loads(data)
 
-        #feature extraction
+        #preprocessing
         df = pd.DataFrame({"tweetTextData": [dict_data["text"]],})
 
         def search_words(text):
@@ -66,10 +63,11 @@ class TweetStreamListener(tweepy.StreamListener):
         else:
             sentiment = "positive"
 
-        lat=0;
-        lon=0;
+        lat=0
+        lon=0
         try:
             getLoc = loc.geocode(dict_data["user"]["location"])
+            locationName = getLoc.address
             lat = getLoc.latitude
             lon = getLoc.longitude
             print(dict_data["user"]["location"])
@@ -83,7 +81,7 @@ class TweetStreamListener(tweepy.StreamListener):
             print(tweet.sentiment.polarity)
 
             es.index(
-                index="mappingtestt",
+                index="project_map_location_visualize_ukraine",
                 doc_type="_doc",
                 body={
                     "author": dict_data["user"]["screen_name"],
@@ -100,7 +98,8 @@ class TweetStreamListener(tweepy.StreamListener):
                     "location":{
                         "lat":lat,
                         "lon":lon
-                    }
+                    },
+                    "location_name":locationName
 
                 },
             )

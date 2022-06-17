@@ -2,9 +2,6 @@ import sys
 
 # secret key protection for git commit
 import os  # package that allows to access env. variables
-from dotenv import load_dotenv, find_dotenv
-
-load_dotenv(find_dotenv())
 
 import json
 
@@ -66,8 +63,8 @@ class TweetStreamListener(tweepy.StreamListener):
         else:
             sentiment = "positive"
 
-        lat=0;
-        lon=0;
+        lat=0
+        lon=0
         try:
             getLoc = loc.geocode(dict_data["user"]["location"])
             lat = getLoc.latitude
@@ -97,11 +94,10 @@ class TweetStreamListener(tweepy.StreamListener):
                     "polarity": tweet.sentiment.polarity,
                     "subjectivity": tweet.sentiment.subjectivity,
                     "sentiment": sentiment,
-                    "location":{
+                   "location":{
                         "lat":lat,
                         "lon":lon
-                    }
-
+                    },
                 },
             )
             print("Inserted: " + str(dict_data["user"]["location"]))
