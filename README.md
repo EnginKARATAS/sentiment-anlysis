@@ -1,8 +1,8 @@
 # Twitter Data Analysis
 1. Introduction
-## This study aims to analyze and visualize sentiment analysis on two topic using the Twitter API
-### Before/After of the Ukraine conflict emotion differentiation
-### Emotional differences on Tweets using the Dollar exchange rate in the Turkish economy.
+## This study aims to analyze and visualize sentiment analysis on two topics using the Twitter API
+### Before/After the Ukraine conflict emotional differentiation
+### Emotional differences in Tweets using the Dollar exchange rate in the Turkish economy.
 
 ## 2. Methodology
 ### 2.1. Data collecting
@@ -62,8 +62,8 @@ A relevant report must be created for the index export process. This is done in 
 ### 4.2. Report Viewing and Downloading Process
 The generated reports are displayed and can be downloaded in Stack Management > Alerts and Insights > Reporting.
 
-## 5. Monitoring, Analytics and Visualization via Kibana
-For monitoring, analytics and visualization operations via Kibana, the relevant indexes must be defined as data views.
+## 5. Monitoring, Analytics, and Visualization via Kibana
+For monitoring, analytics, and visualization operations via Kibana, the relevant indexes must be defined as data views.
 
 ## 6. Sentiment Analysis and Visualization
 Sentiment analysis was carried out on the obtained tweets. Tweets, which were converted into text items using the Python programming language, were divided into positive, negative and neutral categories. These analysis results are interpreted with various visualizations.
@@ -94,7 +94,7 @@ Jupyter Notebook was installed to test Python codes on Linux Server.
 Different Elastic Search versions and migrations were made.
 Dozens of errors encountered have been resolved and documented.
 ## 8. Results
-Tweets were obtained by topic using Twitter's open source API.
+Tweets were obtained by topic using Twitter's open-source API.
 According to the sentiment analysis results, various graphs were created and visualizations were made via Kibana.
 The data obtained with Elastic Search and Kibana were examined on the world map and various analysis results were obtained.
 ## 9. Resources
