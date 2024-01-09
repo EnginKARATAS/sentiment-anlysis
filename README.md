@@ -1,22 +1,24 @@
-Twitter Data Analysis Thesis
+#Twitter Data Analysis
 1. Introduction
-This thesis aims to analyze and visualize sentiment on the Ukrainian war and dollar exchange rate using the Twitter API.
+##This study aims to analyze and visualize sentiment analysis on two topic using the Twitter API
+###Before/After of the Ukraine conflict emotion differentiation
+###Emotional differences on Tweets using the Dollar exchange rate in the Turkish economy.
 
-2. Methodology
-2.1. Data collecting
+##2. Methodology
+###2.1. Data collecting
 Python programming language and Pandas library were used to perform sentiment analysis on tweets obtained using the Twitter API.
 
-2.2. Using Secure Shell (SSH) and CURL
+###2.2. Using Secure Shell (SSH) and CURL
 Tools such as SSH and CURL were used for data extraction. These operations were carried out in order to manage requests to the Twitter API and ensure secure communication.
 
-2.3. Elastic Search and Kibana
+###2.3. Elastic Search and Kibana
 Elastic Search and Kibana were used for data storage and visualization. These tools were chosen to analyze Twitter data and create various visualizations.
 
-3. Elastic Search Operations
-3.1. Adding Data
+##3. Elastic Search Operations
+###3.1. Adding Data
 The PUT command was used to add data to Elastic Search. For example:
 
-json
+
 `
 PUT dollar/_doc/1000
 {
@@ -28,10 +30,10 @@ PUT dollar/_doc/1000
 }
 `
 
-3.2. Reading Process
+###3.2. Reading Process
 Python ElasticSearch-Py library was used for search operations. Match_All property was used to fetch all data.
 
-json
+
 `
 GET ukraine_crisis_topic/_search
 {
@@ -40,32 +42,33 @@ GET ukraine_crisis_topic/_search
    }
 }
 `
-3.3. Deletion Process
+###3.3. Deletion Process
 DELETE command was used for deletions. For example:
 
-json
 
+`
 DELETE dollar/_doc/1
+`
 
-3.4. Update Process
+###3.4. Update Process
 Update operations are based on finding a specific record and replacing it with new data.
 
-4. Index Export CSV Transaction
+##4. Index Export CSV Transaction
 The index created on Elastic Search can be exported in CSV format with all its data. This process is accomplished by creating reports.
 
-4.1. Creating a Report for Export Transaction
+###4.1. Creating a Report for Export Transaction
 A relevant report must be created for the index export process. This is done in Analytics > Discover.
 
-4.2. Report Viewing and Downloading Process
+###4.2. Report Viewing and Downloading Process
 The generated reports are displayed and can be downloaded in Stack Management > Alerts and Insights > Reporting.
 
-5. Monitoring, Analytics and Visualization via Kibana
+##5. Monitoring, Analytics and Visualization via Kibana
 For monitoring, analytics and visualization operations via Kibana, the relevant indexes must be defined as data views.
 
-6. Sentiment Analysis and Visualization
+##6. Sentiment Analysis and Visualization
 Sentiment analysis was carried out on the obtained tweets. Tweets, which were converted into text items using the Python programming language, were divided into positive, negative and neutral categories. These analysis results are interpreted with various visualizations.
 
-6.1. Visualization Models
+###6.1. Visualization Models
 Number of Records by Location
 Total Number of Tweets
 Positive and Negative Tweet Rates and Numbers
@@ -76,7 +79,7 @@ Scatter Plot of Density Values
 Locations with the Highest Number of Followers
 These visual models are created through Elastic Search and Kibana. Tweet data recorded on the graphs were examined simultaneously.
 
-6.2. Ukraine War Analysis Results
+###6.2. Ukraine War Analysis Results
 In the examinations carried out between 3-4-5 May, 10-11-12 May, 17 June:
 
 It has been observed that Turkey shares little about the Ukraine-Russia war.
@@ -90,11 +93,11 @@ Elastic Search installation was done manually on the Linux system outside of ela
 Jupyter Notebook was installed to test Python codes on Linux Server.
 Different Elastic Search versions and migrations were made.
 Dozens of errors encountered have been resolved and documented.
-8. Results
+##8. Results
 Tweets were obtained by topic using Twitter's open source API.
 According to the sentiment analysis results, various graphs were created and visualizations were made via Kibana.
 The data obtained with Elastic Search and Kibana were examined on the world map and various analysis results were obtained.
-9. Resources
+##9. Resources
 ###[1] “Number of Twitter users worldwide from 2019 to 2024,” statista.com/statistics/303681/twitter-users-worldwide/. (Accessed: 1 January 2022)
 
 [2] "Pandas," en.wikipedia.org/wiki/Pandas. (Accessed: 17 June 2022)
